@@ -1,50 +1,47 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-const Bemvindo = (props) => {
-    return (<div>
-        <h2>Bem Vindo { props.nome }</h2>
-        <p>Eu tenho { props.idade } anos.</p>
-    </div>)
+class App extends Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            numero: 0,
+            estado: ''
+        }
+        this.aumentar = this.aumentar.bind(this);
+        this.diminuir = this.diminuir.bind(this);
+    }
+
+    aumentar(){
+        let state = this.state;
+        state.numero += 1;
+        state.estado = 'Aumentei';
+        this.setState(state);
+    }
+
+    diminuir(){
+        let state = this.state;
+        state.numero -= 1;
+        if(state.numero >= 0){
+        state.estado = 'Diminui';
+        this.setState(state);
+        }else{
+            alert("Sem número negativos por aqui!");
+        }
+    }
+
+    render(){
+        return (
+            <div>
+                <h1>{ this.state.estado }</h1>
+                <h2>Contador:</h2>
+                <button onClick={ this.aumentar }>+</button>                
+                { this.state.numero }
+                <button onClick={ this.diminuir }>-</button>
+            </div>
+        );
+    }
 }
 
-const Equipe = (props) => {
-    return (
-        <div>
-            <Sobre nome={props.nome} cargo={props.cargo} idade={props.idade} />
-            <Social facebook={props.facebook} linkedin={props.linkedin} />
-            <hr />
-        </div>
-    )
-}
-
-const Sobre = (props) => {
-    return (
-        <div>
-            <h2>Olá sou o(a): {props.nome}</h2>
-            <h3>Cargo:</h3> {props.cargo}
-            <h3>Idade:</h3> {props.idade}
-        </div>
-    )
-}
-
-const Social = (props) => {
-    return (
-        <div>
-            <a href={props.facebook}>Facebook</a> | <a href={props.linkedin}>Linkedin</a>
-        </div>
-    )
-}
-
-function App(){
-    return (
-        <div>
-            <h1>Teste em React</h1>
-            <Bemvindo nome="Daniel" idade="36" />
-            <Bemvindo nome="Camila" idade="33" />
-            <Equipe nome="Lucas" cargo="Programador" idade="29" facebook="http://uol.com.br" linkedin="http://terra.com.br" />
-            <Equipe nome="Daniel" cargo="Analista" idade="36" facebook="http://espm.br" linkedin="http://ig.com.br" />
-        </div>
-    );
-}
 
 export default App;
